@@ -6,10 +6,12 @@
 #
 ###
 
+# your ndk path
+NDKPATH=~/work/study/ffmpeg/android-ndk-r21b
 
-PREFIX=~/work/av/ffmpeg-4.3.1-armv7a-29
-SYSROOT=~/program/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot
-PLATFORM=~/program/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64
+PREFIX=~/work/av/ffmpeg-4.3.1-armv7a-19
+SYSROOT=${NDKPATH}/toolchains/llvm/prebuilt/linux-x86_64/sysroot
+PLATFORM=${NDKPATH}/toolchains/llvm/prebuilt/linux-x86_64
 
 ./configure \
     --prefix=$PREFIX \
@@ -33,10 +35,12 @@ PLATFORM=~/program/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64
 #
 ###
 
+# your ndk path
+NDKPATH=~/work/study/ffmpeg/android-ndk-r21b
 
 PREFIX=~/work/av/ffmpeg-4.3.1-arm64-v8a-29
-SYSROOT=~/program/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64/sysroot
-PLATFORM=~/program/android-ndk-r21b/toolchains/llvm/prebuilt/linux-x86_64
+SYSROOT=${NDKPATH}/toolchains/llvm/prebuilt/linux-x86_64/sysroot
+PLATFORM=${NDKPATH}/toolchains/llvm/prebuilt/linux-x86_64
 
 ./configure \
     --prefix=$PREFIX \
