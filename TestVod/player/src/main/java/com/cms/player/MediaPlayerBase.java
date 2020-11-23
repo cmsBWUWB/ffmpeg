@@ -21,21 +21,38 @@ public class MediaPlayerBase implements
     private OnErrorListener onErrorListener;
     private OnPlayCompletedListener onPlayCompletedListener;
 
+    private OnStateChangeLisntener onStateChangeLisntener;
+    private OnPlayTimeChangeListener onPlayTimeChangeListener;
+
+    private enum State{
+        Idle,
+        Init, PrepareAsync, Prepared,
+        Playing, Pause, Buffering, Seeking,
+        PlayCompleted, Stop, Error,
+        End
+    }
+    private State state = State.Idle;
+
     public enum PlayerType{
         STANDARD_PLAYER,
         FFMPEG_PLAYER
     }
+    private PlayerType playerType = PlayerType.STANDARD_PLAYER;
+
     public MediaPlayerBase(PlayerType playerType){
         if(playerType == null){
             amp = new StandardPlayer();
+            playerType = PlayerType.STANDARD_PLAYER;
             return;
         }
         switch (playerType){
             case STANDARD_PLAYER:
                 amp = new StandardPlayer();
+                playerType = PlayerType.STANDARD_PLAYER;
                 break;
             case FFMPEG_PLAYER:
                 amp = new FfmpegPlayer();
+                playerType = PlayerType.FFMPEG_PLAYER;
                 break;
         }
         amp.setOnPreparedListener(this);
@@ -127,5 +144,13 @@ public class MediaPlayerBase implements
     }
     public interface OnPlayCompletedListener{
         void onPlayCompleted(MediaPlayerBase mpb);
+    }
+
+    private interface OnStateChangeLisntener{
+        void onStateChange(State oldState, State newState);
+    }
+
+    private interface OnPlayTimeChangeListener{
+        void onPlayTimeChange(long playTime);
     }
 }
