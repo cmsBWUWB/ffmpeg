@@ -1,2 +1,4 @@
+include ':base'
+include ':player'
 include ':app'
 rootProject.name = "TestVod"
