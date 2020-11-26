@@ -12,7 +12,7 @@ extern "C"{
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, TAG ,__VA_ARGS__)
 
 
-extern "C" JNIEXPORT jstring JNICALL Java_com_cms_player_FfmpegPlayer_testFfmpeg(
+extern "C" JNIEXPORT jstring JNICALL Java_com_cms_player_playeriml_FfmpegPlayer_testFfmpeg(
         JNIEnv* env,
         jobject obj, jstring a, jstring b) {
     const char* version = av_version_info();
