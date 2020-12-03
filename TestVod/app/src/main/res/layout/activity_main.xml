@@ -16,4 +16,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.cms.view.MyTimeProgressBar
+        android:id="@+id/my_time_progress_bar"
+        android:layout_width="400dp"
+        android:layout_height="9dp"
+        android:layout_marginTop="48dp"
+        android:max="100"
+        android:thumb="@null"
+        android:progressDrawable="@android:color/darker_gray"
+        android:progress="50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sample_text" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

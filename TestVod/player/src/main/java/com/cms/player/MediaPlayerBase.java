@@ -23,11 +23,11 @@ public class MediaPlayerBase implements
         AbstractPlayer.OnCompletionListener,
         AbstractPlayer.OnErrorListener {
     private static final String TAG = "MediaPlayerBase";
+    private AbstractPlayer abstractPlayer;
 
     private AutoUpdatePlayTimeHandler autoUpdatePlayTimeHandler;
     private EventHandler eventHandler;
     private MediaStatus mediaStatus = MediaStatus.Idle;
-    private AbstractPlayer abstractPlayer;
 
     private OnPreparedListener onPreparedListener;
     private OnSeekCompleteListener onSeekCompleteListener;
