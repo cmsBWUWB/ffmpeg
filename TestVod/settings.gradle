@@ -1,3 +1,6 @@
+include ':player:standardplayer'
+include ':player:exoplayer'
+include ':player:ffmpegplayer'
 include ':base'
 include ':player'
 include ':app'

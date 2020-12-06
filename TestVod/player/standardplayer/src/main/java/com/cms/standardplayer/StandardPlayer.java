@@ -1,4 +1,4 @@
-package com.cms.player.playeriml;
+package com.cms.standardplayer;
 
 import android.content.Context;
 import android.media.MediaPlayer;

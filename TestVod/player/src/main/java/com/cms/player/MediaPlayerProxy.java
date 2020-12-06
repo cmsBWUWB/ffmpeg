@@ -3,6 +3,8 @@ package com.cms.player;
 import android.content.Context;
 import android.view.SurfaceHolder;
 
+import androidx.annotation.NonNull;
+
 import com.cms.base.ULog;
 
 import java.io.IOException;
@@ -19,11 +21,12 @@ public class MediaPlayerProxy implements SurfaceHolder.Callback,
         MediaPlayerBase.OnErrorListener {
     private static final String TAG = "MediaPlayerProxy";
 
+    private String playerType;
     private MediaPlayerBase mediaPlayerBase;
     private SurfaceHolder surfaceHolder;
     private boolean isSurfaceViewPrepared = false;
     private Context context;
-    private MediaPlayerBase.PLAYER player = MediaPlayerBase.PLAYER.MEDIA_PLAYER_STANDARD;
+
     private boolean needDelayPrepareAsync = false;
     private String delayUrl;
 
@@ -41,15 +44,15 @@ public class MediaPlayerProxy implements SurfaceHolder.Callback,
     /**
      * 需要在主线程中创建，否则surfaceHolder的配置会存在问题
      */
-    public MediaPlayerProxy(Context context, SurfaceHolder surfaceHolder, MediaPlayerBase.PLAYER player) {
+    public MediaPlayerProxy(Context context, SurfaceHolder surfaceHolder, @NonNull String playerType) {
         this.context = context;
-        this.player = player;
+        this.playerType = playerType;
         this.surfaceHolder = surfaceHolder;
         if(surfaceHolder.getSurface().isValid()){
             isSurfaceViewPrepared = true;
         }
         surfaceHolder.addCallback(this);
-        mediaPlayerBase = new MediaPlayerBase(context, player);
+        mediaPlayerBase = new MediaPlayerBase(context, playerType);
 
         mediaPlayerBase.setOnPreparedListener(this);
         mediaPlayerBase.setOnSeekCompleteListener(this);
@@ -132,7 +135,7 @@ public class MediaPlayerProxy implements SurfaceHolder.Callback,
             case Error:
                 mediaPlayerBase.release();
             case End:
-                mediaPlayerBase = new MediaPlayerBase(context, player);
+                mediaPlayerBase = new MediaPlayerBase(context, playerType);
                 mediaPlayerBase.setOnPreparedListener(this);
                 mediaPlayerBase.setOnSeekCompleteListener(this);
                 mediaPlayerBase.setOnCompletionListener(this);

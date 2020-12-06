@@ -1,4 +1,4 @@
-package com.cms.player;
+package com.cms.exoplayer;
 
 import android.content.Context;
 import android.media.MediaFormat;

@@ -1,23 +1,21 @@
-package com.cms.player.playeriml;
+package com.cms.ffmpegplayer;
 
-import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 
 import com.cms.player.AbstractPlayer;
-import com.cms.player.decoderhal.DecoderHalNativeInterface;
 
 import java.io.IOException;
 
-public class DecoderHalPlayer extends AbstractPlayer {
-    private static final String TAG = "MediaPlayerDecoderHal";
-    private String url;
-    private SurfaceHolder surfaceHolder;
-    private DecoderHalNativeInterface decoderHalNativeInterface = new DecoderHalNativeInterface();
-
-    public DecoderHalPlayer(Context context) {
-
+public class FfmpegPlayer extends AbstractPlayer {
+    // Used to load the 'native-lib' library on application startup.
+    static {
+        System.loadLibrary("native-lib");
     }
+    public native String testFfmpeg(String sourcePath, String targetPath);
 
     @Override
     public void setDataSource(String url) throws IOException {
@@ -38,9 +36,10 @@ public class DecoderHalPlayer extends AbstractPlayer {
     public void start() {
 
     }
+
     @Override
-    public void setSpeed(float speed) throws Exception{
-        throw new UnsupportedOperationException("do not support setSpeed for exoplayer");
+    public void setSpeed(float speed) throws Exception {
+
     }
 
     @Override
@@ -115,6 +114,6 @@ public class DecoderHalPlayer extends AbstractPlayer {
 
     @Override
     public MediaPlayer getObject() {
-        return new MediaPlayer();
+        return null;
     }
 }

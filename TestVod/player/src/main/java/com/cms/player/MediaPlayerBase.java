@@ -5,16 +5,16 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.SurfaceHolder;
 
 import androidx.annotation.NonNull;
 
 import com.cms.base.ULog;
-import com.cms.player.playeriml.DecoderHalPlayer;
-import com.cms.player.playeriml.ExoPlayer;
-import com.cms.player.playeriml.StandardPlayer;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MediaPlayerBase implements
         AbstractPlayer.OnPreparedListener,
@@ -38,30 +38,27 @@ public class MediaPlayerBase implements
     private PositionChangeListener positionChangeListener;
     private StatusChangeListener statusChangeListener;
 
+    public static final Map<String, Class<AbstractPlayer>> playerMap = new HashMap<>();
 
-    public enum PLAYER{
-        MEDIA_PLAYER_STANDARD,
-        MEDIA_PLAYER_EXOPLAYER,
-        MEDIA_PLAYER_DECODERHAL
+    public static void registerPlayer(String playerType, Class<AbstractPlayer> abstractPlayerClass){
+        playerMap.put(playerType, abstractPlayerClass);
     }
 
-    public MediaPlayerBase(Context context, PLAYER player){
+    public MediaPlayerBase(Context context, String playerType){
+        Class<AbstractPlayer> abstractPlayerClass;
+        if(playerMap.isEmpty() || TextUtils.isEmpty(playerType) || (abstractPlayerClass = playerMap.get(playerType)) == null){
+            throw new IllegalArgumentException("do not support playerType: " + playerType);
+        }
+        try {
+            this.abstractPlayer = abstractPlayerClass.getDeclaredConstructor(Context.class).newInstance(context);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("create player failed, the implementation of player is illegal");
+        }
+
         autoUpdatePlayTimeHandler = new AutoUpdatePlayTimeHandler(Looper.getMainLooper());
         eventHandler = new EventHandler(Looper.getMainLooper());
-        switch (player){
-            case MEDIA_PLAYER_STANDARD:
-                abstractPlayer = new StandardPlayer(context);
-                break;
-            case MEDIA_PLAYER_EXOPLAYER:
-                abstractPlayer = new ExoPlayer(context);
-                break;
-            case MEDIA_PLAYER_DECODERHAL:
-                abstractPlayer = new DecoderHalPlayer(context);
-                break;
-            default:
-                abstractPlayer = new StandardPlayer(context);
-                break;
-        }
+
         abstractPlayer.setOnPreparedListener(this);
         abstractPlayer.setOnSeekCompleteListener(this);
         abstractPlayer.setOnInfoListener(this);

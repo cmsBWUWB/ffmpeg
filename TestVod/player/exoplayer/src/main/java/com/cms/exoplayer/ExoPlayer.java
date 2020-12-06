@@ -1,11 +1,10 @@
-package com.cms.player.playeriml;
+package com.cms.exoplayer;
 
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.view.SurfaceHolder;
 
 import com.cms.player.AbstractPlayer;
-import com.cms.player.ZTEExoPlayer;
 
 import java.io.IOException;
 
