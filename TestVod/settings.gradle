@@ -1,4 +1,3 @@
-include ':view'
 include ':base'
 include ':player'
 include ':app'
