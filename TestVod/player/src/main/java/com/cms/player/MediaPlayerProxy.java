@@ -48,12 +48,12 @@ public class MediaPlayerProxy implements SurfaceHolder.Callback,
         this.context = context;
         this.playerType = playerType;
         this.surfaceHolder = surfaceHolder;
+        mediaPlayerBase = new MediaPlayerBase(context, playerType);
+
         if(surfaceHolder.getSurface().isValid()){
             isSurfaceViewPrepared = true;
         }
         surfaceHolder.addCallback(this);
-        mediaPlayerBase = new MediaPlayerBase(context, playerType);
-
         mediaPlayerBase.setOnPreparedListener(this);
         mediaPlayerBase.setOnSeekCompleteListener(this);
         mediaPlayerBase.setOnCompletionListener(this);
