@@ -13,8 +13,23 @@ import java.io.IOException;
 public class FfmpegPlayer extends AbstractPlayer {
     // Used to load the 'native-lib' library on application startup.
     static {
-        System.loadLibrary("native-lib");
+        System.loadLibrary("ffmpeg-jni");
+        nativeInit();
     }
+
+    public enum TestA{
+        aaa,
+        bbb,
+        ccc
+    }
+    public static class StartParam{
+        public TestA testA;
+    }
+    public FfmpegPlayer(){
+    }
+
+    public static native void nativeInit();
+
     public native String testFfmpeg(String sourcePath, String targetPath);
 
     @Override

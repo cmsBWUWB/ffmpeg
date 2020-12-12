@@ -12,12 +12,25 @@ extern "C"{
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, TAG ,__VA_ARGS__)
 
 
-extern "C" JNIEXPORT jstring JNICALL Java_com_cms_player_playeriml_FfmpegPlayer_testFfmpeg(
+extern "C" JNIEXPORT jstring JNICALL Java_com_cms_ffmpegplayer_FfmpegPlayer_testFfmpeg(
         JNIEnv* env,
         jobject obj, jstring a, jstring b) {
     const char* version = av_version_info();
 
     return env->NewStringUTF(version);
+}
+
+extern "C" JNIEXPORT void JNICALL Java_com_cms_ffmpegplayer_FfmpegPlayer_nativeInit(
+        JNIEnv* env,
+        jclass clazz) {
+    jclass startParamClazz = env->FindClass("com/cms/ffmpegplayer/FfmpegPlayer$StartParam");
+    jfieldID testAId = env->GetFieldID(startParamClazz, "testA","Lcom/cms/ffmpegplayer/FfmpegPlayer$TestA;");
+    env->DeleteLocalRef(startParamClazz);
+
+    jclass testAClazz = env->FindClass("com/cms/ffmpegplayer/FfmpegPlayer$TestA");
+    jmethodID testAOrdinalId = env->GetMethodID(testAClazz, "ordinal", "()I");
+    env->DeleteLocalRef(testAClazz);
+
 }
 
 

@@ -13,7 +13,7 @@ cmake_minimum_required(VERSION 3.4.1)
 #查找当前目录下的所有源文件，保存至DIR_SRCS变量中
 #aux_source_directory(. DIR_SRCS)
 
-link_directories(${CMAKE_SOURCE_DIR}/../../../libs/ffmpeg-lib/${ANDROID_ABI})
+link_directories(${CMAKE_SOURCE_DIR}/../../../libs/${ANDROID_ABI})
 
 add_library(ffmpeg-jni SHARED native-lib.cpp)
 
